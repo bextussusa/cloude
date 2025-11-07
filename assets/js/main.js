@@ -38,35 +38,7 @@ if(form){
 // Closes on Yes/No and stays on the page.
 (function(){
   const path = window.location.pathname.split('/').pop();
-  const isHome = path === '' || path === 'index.html';
-  if(!isHome) return;
-  if(sessionStorage.getItem('indexGateShown') === '1') return;
-  sessionStorage.setItem('indexGateShown', '1');
-  const bd = document.createElement('div');
-  bd.className = 'modal-backdrop';
-  bd.innerHTML = `
-<div class="modal">
-<h3>Policy Notice</h3>
-<p>Are you accepting our policy to Enter Spenbat game?.</p>
-<div style="display:flex;gap:10px;flex-wrap:wrap">
-<button class="btn" id="age-yes">Yes, Accept</button>
-<button class="btn ghost" id="age-no">Close</button>
-</div>
-</div>`;
-  document.body.appendChild(bd);
-  document.body.classList.add('modal-open');
-  bd.style.display='flex';
-  function closeGate(){
-    document.body.classList.remove('modal-open');
-    bd.style.display='none'; bd.remove();
-  }
-  bd.querySelector('#age-yes').addEventListener('click', closeGate);
-  bd.querySelector('#age-no').addEventListener('click', closeGate);
-})();
- 
-(function(){
-  const path = window.location.pathname.split('/').pop();
-  const isLander = path === 'lander.html';
+  const isLander = path === 'index.html';
   if(!isLander) return;
   if(sessionStorage.getItem('landerGateShown') === '1') return;
   sessionStorage.setItem('landerGateShown', '1');
